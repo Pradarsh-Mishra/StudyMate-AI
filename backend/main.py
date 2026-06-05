@@ -1,6 +1,5 @@
 import uvicorn
 import openai
-import easyocr
 import numpy as np
 
 from io import BytesIO
@@ -33,7 +32,7 @@ api_key="sk-EF5sUlx6Li_oUp0N5E6R5Q",
 base_url="https://apidev.navigatelabsai.com"
 )
 
-ocr_reader=easyocr.Reader(["en"])
+
 
 
 splitter=RecursiveCharacterTextSplitter(
