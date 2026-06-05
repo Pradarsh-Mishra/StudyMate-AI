@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+python-multipart
+openai
+langchain
+langchain-community
+langchain-openai
+langchain-text-splitters
+chromadb
+pypdf
+easyocr
+pillow
+numpy
