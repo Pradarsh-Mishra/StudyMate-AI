@@ -1,6 +1,7 @@
 import uvicorn
 import openai
 import numpy as np
+import os
 
 from io import BytesIO
 from PIL import Image
@@ -27,9 +28,12 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-client=openai.OpenAI(
-api_key="sk-EF5sUlx6Li_oUp0N5E6R5Q",
-base_url="https://apidev.navigatelabsai.com"
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL", "https://apidev.navigatelabsai.com")
+
+client = openai.OpenAI(
+    api_key=OPENAI_API_KEY,
+    base_url=OPENAI_BASE_URL
 )
 
 
@@ -41,10 +45,10 @@ text_splitter = RecursiveCharacterTextSplitter(
 )
 
 
-embeddings=OpenAIEmbeddings(
-model="text-embedding-3-small",
-api_key="sk-EF5sUlx6Li_oUp0N5E6R5Q",
-base_url="https://apidev.navigatelabsai.com"
+embeddings = OpenAIEmbeddings(
+    model="text-embedding-3-small",
+    api_key=OPENAI_API_KEY,
+    base_url=OPENAI_BASE_URL
 )
 
 
