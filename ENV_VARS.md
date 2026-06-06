@@ -34,6 +34,7 @@ Local frontend `.env` and deployment
 
   1. In your Render service settings, set an environment variable (if needed) and ensure the service is running at `https://capstone-project-aja0.onrender.com`.
   2. If the backend exposes other secrets (API keys), configure them in Render's dashboard rather than hardcoding.
+  3. Render provides `PORT` at runtime; the backend now reads `PORT` from the environment so it will bind correctly.
 
 - Notes on secrets:
 
