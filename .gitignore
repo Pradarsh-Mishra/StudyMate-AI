@@ -1,0 +1,10 @@
+# Ignore local frontend env file if present outside repo
+frontend.env
+# Keep local frontend/.env (in workspace frontend) out of repo if accidentally placed
+/frontend/.env
+
+# Python and IDE cruft (optional)
+__pycache__/
+*.pyc
+.vscode/
+.env
