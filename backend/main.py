@@ -6,8 +6,9 @@ import os
 from io import BytesIO
 from PIL import Image
 
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, UploadFile, File, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from pydantic import BaseModel
 
@@ -27,6 +28,23 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
+
+
+@app.middleware("http")
+async def ensure_cors_headers(request: Request, call_next):
+    # Handle preflight OPTIONS requests early and always return CORS headers
+    if request.method == "OPTIONS":
+        headers = {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+            "Access-Control-Allow-Headers": "Authorization,Content-Type,Accept",
+        }
+        return JSONResponse(content={}, status_code=200, headers=headers)
+
+    response = await call_next(request)
+    # Ensure the Access-Control-Allow-Origin header is present on all responses
+    response.headers.setdefault("Access-Control-Allow-Origin", "*")
+    return response
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL", "https://apidev.navigatelabsai.com")
