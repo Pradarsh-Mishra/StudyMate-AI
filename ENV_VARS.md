@@ -39,3 +39,30 @@ Local frontend `.env` and deployment
 
   - Do not commit API keys or secrets into the repo. Use Render/Vercel environment settings or a local `.env` kept out of source control.
   - Consider moving the hardcoded API key in `backend/main.py` into environment variables (e.g., `OPENAI_API_KEY`) for safety.
+
+OPENAI API key (backend)
+
+- Local dev:
+
+  - Set the `OPENAI_API_KEY` (and optional `OPENAI_BASE_URL`) in your shell before running the backend.
+    - PowerShell (Windows):
+      ```powershell
+      $env:OPENAI_API_KEY = "sk-..."
+      $env:OPENAI_BASE_URL = "https://apidev.navigatelabsai.com" # optional
+      python backend/main.py
+      ```
+    - Bash/macOS/Linux:
+      ```bash
+      export OPENAI_API_KEY="sk-..."
+      export OPENAI_BASE_URL="https://apidev.navigatelabsai.com" # optional
+      python backend/main.py
+      ```
+
+- Render (production):
+
+  - In your Render service, go to the Service Dashboard → Environment → Environment Variables and add:
+    - `OPENAI_API_KEY` = your secret key
+    - `OPENAI_BASE_URL` = (if required) the API base URL
+  - Redeploy the service after adding vars.
+
+- Security note: never commit real secrets. Use platform environment variables or a secrets manager.
